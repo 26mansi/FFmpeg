@@ -542,6 +542,7 @@ void avcodec_register_all(void)
     REGISTER_PARSER(AAC_LATM,           aac_latm);
     REGISTER_PARSER(AC3,                ac3);
     REGISTER_PARSER(ADX,                adx);
+    REGISTER_PARSER(APNG,               apng);
     REGISTER_PARSER(BMP,                bmp);
     REGISTER_PARSER(CAVSVIDEO,          cavsvideo);
     REGISTER_PARSER(COOK,               cook);
