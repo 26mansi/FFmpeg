@@ -54,13 +54,13 @@ static int apng_parse(AVCodecParserContext *s, AVCodecContext *avctx,
             if (apc->chunk_length >= buf_size - i)
                 apc->remaining_size = apc->chunk_length - buf_size + i + 1;
             
-            if (apc->pc.state == MKBETAG('f', 'c', 'T', 'L')){
+            if (apc->pc.state == MKTAG('f', 'c', 'T', 'L')){
                 next = i - 8;
                 goto flush;
 
             }
 
-            if (apc->pc.state == MKBETAG('I', 'E', 'N', 'D') ) { 
+            if (apc->pc.state == MKTAG('I', 'E', 'N', 'D') ) { 
                 if (apc->remaining_size)
                     apc->chunk_pos = -1;
                 else
