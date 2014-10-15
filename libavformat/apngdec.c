@@ -30,19 +30,21 @@ static int apng_probe(AVProbeData *p)
         uint64_t PNGSIG = 0x89504e470d0a1a0a;
         bytestream2_init(&gb,p->buf, p->buf_size);
 
+    
         if   ( PNGSIG != bytestream2_get_be64(&gb));
             return 0;
 
-        while (bytestream2_get_bytes_left(&gb) > 0 ){
-            length = bytestream2_get_be32(&gb);
-            tag = bytestream2_get_le32(&gb);
-            if (tag == MKTAG('I', 'D', 'A', 'T'))
-                return 0;
+         while (bytestream2_get_bytes_left(&gb) > 0 ){
+           
+            tag = bytestream2_get_le32(&gb);      
             if (tag == MKTAG('a', 'c', 'T', 'L'))
-                return AVPROBE_SCORE_MAX;
-            else  bytestream2_skip(&gb, length + 4);
-            }
-        return 0;
+                return 1000;
+           
+            if (tag == MKTAG('I', 'D', 'A', 'T'))
+                     return 0;
+          }
+          
+          return 0;
 }
 
 /*
