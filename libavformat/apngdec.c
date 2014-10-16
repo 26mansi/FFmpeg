@@ -25,20 +25,17 @@ typedef struct APNGDemuxContext {
 
 static int apng_probe(AVProbeData *p)
 {      
-        uint32_t tag, length; 
+        uint32_t tag; 
         GetByteContext gb;
         uint64_t PNGSIG = 0x89504e470d0a1a0a;
         bytestream2_init(&gb,p->buf, p->buf_size);
-
-    
-        if   ( PNGSIG != bytestream2_get_be64(&gb));
-            return 0;
-
-         while (bytestream2_get_bytes_left(&gb) > 0 ){
+         
+        
+        while (bytestream2_get_bytes_left(&gb) > 0 ){
            
             tag = bytestream2_get_le32(&gb);      
             if (tag == MKTAG('a', 'c', 'T', 'L'))
-                return 1000;
+                return AVPROBE_SCORE_MAX;
            
             if (tag == MKTAG('I', 'D', 'A', 'T'))
                      return 0;
