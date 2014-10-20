@@ -30,7 +30,9 @@ static int apng_probe(AVProbeData *p)
         uint64_t PNGSIG = 0x89504e470d0a1a0a;
         bytestream2_init(&gb,p->buf, p->buf_size);
          
-        
+        if (PNGSIG == bytestream2_get_le64(&gb))
+            return 0;        
+
         while (bytestream2_get_bytes_left(&gb) > 0 ){
            
             tag = bytestream2_get_le32(&gb);      
